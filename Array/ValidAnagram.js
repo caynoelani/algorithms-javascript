@@ -7,7 +7,7 @@
     //Strings are different lengths
 
 //Considerations
-    //Sort strings right away and compare each character as we iterate through them
+    //Sort strings right away and compare them to eachother
     //Iterate through both strings and track count of each character using 2 maps, then iterate through maps and compare character counts
 
 var validAnagram = function(s, t) {

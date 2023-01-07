@@ -1,20 +1,24 @@
-//Write a function that takes in a non-empty array of distinct integers and an integer representing a target sum.  If any two numbers in the input array sum up to the target sum, the function should return them in an array, in any order. If no two numbers sum up to the target sum, the function should return an empty array. 
+//Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.You can return the answer in any order.
 
-const TwoNumberSum = (array, target) => { //takes array of integers and target sum
-    let map = {} //keep track of checked integers
+//Questions
+    //? Confirm there will always be exactly one solution and the array will always be an array of integers
+    //? Do we have to worry about the size of the input in terms of space?
 
-    for(i = 0; i < array.length; i++ ){ //iterating through the array
-        let currentInt = array[i];
-        let dif = target - currentInt; //target = currentInt + x; target - currentInt = x; solve for x with given variables
+//Consideratinons
+    //Brute Force: Nest for-loop to compare each number to another and see if the sum adds to the target //!O(n^2)
+    //Most efficient: Use a map to track numbers as we traverse through the array, and see if the target minus the current index value adds to a number in the map //!O(n)
 
-        if(dif in map){ //check if difference is in map
-            return [dif, currentInt]; //return two integers that sum to target
-        } else {
-            map[currentInt] = 1; //add current integer to hashmap
-        }
+
+const TwoNumberSum = (nums, target) => { 
+    const differenceMap = {};
+
+    for(let i = 0; i < nums.length; i++){
+        const current = nums[i];
+        const difference = target - current;
+
+        if(difference in differenceMap) return [i, differenceMap[difference]];
+        else differenceMap[current] = i;
     }
-
-    return [] //return empty array if no matches found
 }
 
 
@@ -27,10 +31,7 @@ let target2 = 5
 let array3 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 let target3 = 17
 
-let array4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 15]
-let target4 = 43
 
-console.log(TwoNumberSum(array1, target1)) //[-1, 11]
-console.log(TwoNumberSum(array2, target2)) //[4, 1]
-console.log(TwoNumberSum(array3, target3)) //[8, 9]
-console.log(TwoNumberSum(array4, target4)) //[]
+console.log(TwoNumberSum(array1, target1)) //[6, 4]
+console.log(TwoNumberSum(array2, target2)) //[0, 2]
+console.log(TwoNumberSum(array3, target3)) //[7, 8]
